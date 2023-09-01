@@ -1,26 +1,29 @@
 const player = (name, marker) => {
     return {name, marker};
 }
-const cuong = player('cuong','X');
-const enemy = player('enemy','O');
-const tic = Array.from(document.querySelectorAll('.tic'));
-const gameBoard = [];
 
-tic.forEach((tac) => tac.addEventListener('click',() => {
-    if (gameBoard.length == 0 || gameBoard.length == 2 ||
-        gameBoard.length == 4 || gameBoard.length == 6 ||
-        gameBoard.length == 8) {
-            tac.textContent = "X"
-            gameBoard[tic.indexOf(tac)] = cuong;
-            console.log(tic.indexOf(tac));
-            console.log(gameBoard.length);
+const gameBoard = (() => {
+    const cuong = player('cuong','X');
+    const enemy = player('enemy','O');
+    const tics = Array.from(document.querySelectorAll('.tic'));
+    const count = [];
+    const logic = [];
+    const displayMarker = (tic) => {
+        if (count.length == 0 || count.length == 2 ||
+            count.length == 4 || count.length == 6 ||
+            count.length == 8) {
+                tic.textContent = "X"
+                logic[tics.indexOf(tic)] = cuong;
+                count.push(cuong);
+                console.log(logic);
+            }
+        else {
+            tic.textContent = "O"
+            logic[gameBoard.tics.indexOf(tic)] = enemy;
+            count.push(enemy);
         }
-    else {
-        tac.textContent = "O"
-        gameBoard[tic.indexOf(tac)] = enemy;
-        console.log(tic.indexOf(tac));
-        console.log(gameBoard.length);
-
     }
-    console.log(gameBoard);
-}))
+    return {tics, displayMarker};
+})();
+
+gameBoard.tics.forEach((tic) => tic.addEventListener('click', gameBoard.displayMarker.bind(gameBoard.tics, tic)));
