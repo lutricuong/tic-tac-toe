@@ -1,0 +1,18 @@
+.display {
+    display: grid;
+    grid-template-columns: 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px;
+    border: solid 1px red;
+    align-items: center;
+    justify-content: center;
+}
+
+.tic {
+    width: 50px;
+    height: 50px;
+    border: solid 1px red;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
