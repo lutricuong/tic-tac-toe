@@ -16,3 +16,17 @@
     align-items: center;
     justify-content: center;
 }
+
+.player1 {
+    border: 0;
+    border-radius: 10px;
+}
+.player1-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1.5fr repeat(6, 1fr);
+    gap: 20px;
+    border-radius: 10px;
+    width: 350px;
+    height: 400px;
+}
