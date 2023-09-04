@@ -9,35 +9,42 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <dialog class="player1">
-        <form class="player1-form">
-            <div class="form-title">Player 1</div>
-            <input type="text" id="name" placeholder="Name" required>
+    <header>
+        <div class="header">Tic Tac Toe</div>
+    </header>
+    <button class="player-pick">Pick Player</button>
+    <dialog class="player-dialog">
+        <form class="player-form">
+            <div class="player-form-title">Player 1</div>
+            <input type="text" id="player1-name" placeholder="Name" required>
+            <div class="player-form-title">Player 2</div>
+            <input type="text" id="player2-name" placeholder="Name" required>
             <fieldset>
-                <legend>You chose? (X goes first)</legend>
-                <div class="yes">
-                    <input type="radio" name="read" id="yes" value="yes" checked>
-                    <span>Yes</span>
+                <legend>Player 1 chose? (X goes first)</legend>
+                <div class="X">
+                    <input type="radio" name="marker" id="X" value="X" checked>
+                    <span>X</span>
                 </div>
-                <div class="no">
-                    <input type="radio" name="read" id="no" value="no">
-                    <span>No</span>
+                <div class="O">
+                    <input type="radio" name="marker" id="O" value="O">
+                    <span>O</span>
                 </div>
             </fieldset>
-            <button class="closeDialog">OK</button>
+            <button class="player1-confirm">OK</button>
         </form>
     </dialog>
     <div class="display">
-        <div class="tic"></div>
-        <div class="tic"></div>
-        <div class="tic"></div>
-        <div class="tic"></div>
-        <div class="tic"></div>
-        <div class="tic"></div>
-        <div class="tic"></div>
-        <div class="tic"></div>
-        <div class="tic"></div>
+        <div class="tic one"></div>
+        <div class="tic two"></div>
+        <div class="tic three"></div>
+        <div class="tic four"></div>
+        <div class="tic five"></div>
+        <div class="tic six"></div>
+        <div class="tic seven"></div>
+        <div class="tic eight"></div>
+        <div class="tic nine"></div>
     </div>
     <div class="winner"></div>
+    <button class="restart">Restart</button>
 </body>
 </html>

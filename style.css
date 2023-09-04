@@ -1,32 +1,100 @@
+body {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.header {
+    font-size: 80px;
+    font-weight: 800;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-pick {
+    font-size: 20px;
+    width: 200px;
+    height: 50px;
+    justify-self: center;
+    border-radius: 10px;
+}
+
+.player-dialog {
+    border-radius: 10px;
+}
+
+.player-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    border-radius: 10px;
+    width: 200px;
+    height: 300px;
+}
+
+.player-form-title {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 800;
+}
+
+#player1-name, #player2-name {
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.player-confirm {
+    border-radius: 10px;
+    font-weight: 800;
+}
+
 .display {
     display: grid;
-    grid-template-columns: 50px 50px 50px;
-    grid-template-rows: 50px 50px 50px;
-    border: solid 1px red;
-    align-items: center;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
     justify-content: center;
+    align-content: center;
+    width: 340px;
+    height: 340px;
+    justify-self: center;
+    background-color: #553d67;
 }
 
 .tic {
-    width: 50px;
-    height: 50px;
-    border: solid 1px red;
-    font-size: 40px;
+    font-size: 60px;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.player1 {
-    border: 0;
+.one, .four {
+    border-right: solid 3px white;
+    border-bottom: solid 3px white;
+}
+
+.two, .five {
+    border-right: solid 3px white;
+    border-bottom: solid 3px white;
+}
+
+.three, .six {
+    border-bottom: solid 3px white;
+}
+
+.seven, .eight {
+    border-right: solid 3px white;
+}
+
+.restart {
+    font-size: 20px;
+    width: 200px;
+    height: 50px;
+    justify-self: center;
     border-radius: 10px;
 }
-.player1-form {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1.5fr repeat(6, 1fr);
-    gap: 20px;
-    border-radius: 10px;
-    width: 350px;
-    height: 400px;
-}
+
