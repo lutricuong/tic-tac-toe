@@ -3,16 +3,15 @@ const player = (name, marker) => {
 }
 
 const gameBoard = (() => {
+    const buttonPickPlayer = document.querySelector('.player-pick');
     const playerDialog = document.querySelector('.player-dialog');
-    const playerForm = document.querySelector('form');
+    const playerForm = document.querySelector('.player-form');
     const player1name = document.querySelector('#player1-name');
     const player2name = document.querySelector('#player2-name');
     const player1marker = document.getElementsByName('marker');
-    const buttonPickPlayer = document.querySelector('.player-pick');
     const buttonConfirmPlayer = document.querySelector('.player-confirm');
     const gameplay = document.querySelector('.gameplay');
     const tics = Array.from(document.querySelectorAll('.tic'));
-    const board = document.querySelector('.board');
     const player1boardName = document.querySelector('.player1-board-name');
     const player2boardName = document.querySelector('.player2-board-name');
     const player1boardPoint = document.querySelector('.player1-board-point');
@@ -27,6 +26,17 @@ const gameBoard = (() => {
         playerForm.reset();
         playerDialog.showModal();
     }
+    const chooseMarker = () => {
+        for (i = 0; i < player1marker.length; i++) {
+            if (player1marker[i].checked)
+            return player1marker[i].value;
+        }
+    }
+    const resetBoard = () => {
+        tics.forEach((tic) => tic.textContent = "");
+        logic = [];
+        count = [];
+    }
     const closeDialog = (e) => {
         e.preventDefault();
         player1 = player(player1name.value, chooseMarker());
@@ -36,23 +46,12 @@ const gameBoard = (() => {
         else player2 = player(player2name.value, 'X');
         player1boardName.textContent = player1name.value + ' (' + player1.marker + ')';
         player2boardName.textContent = player2name.value + ' (' + player2.marker + ')';
-        player1boardPoint.textContent = 0;
-        player2boardPoint.textContent = 0;
+        player1boardPoint.textContent = '0';
+        player2boardPoint.textContent = '0';
         tiePoint.textContent = '0';
-        playerDialog.close();
-        tics.forEach((tic) => tic.textContent = "");
-        logic = [];
-        count = [];
-        showGameplay();
-    }
-    const showGameplay = () => {
         gameplay.style.display = "grid";
-    }
-    const chooseMarker = () => {
-        for (i = 0; i < player1marker.length; i++) {
-            if (player1marker[i].checked)
-            return player1marker[i].value;
-        }
+        resetBoard();
+        playerDialog.close();
     }
     const displayMarker = (tic) => {
         if (tic.textContent == "" && player1.marker == "X") {
@@ -92,9 +91,7 @@ const gameBoard = (() => {
             logic[0] == player1 && logic[0] == logic[4] && logic[4] == logic[8] ||
             logic[2] == player1 && logic[2] == logic[4] && logic[4] == logic[6]) {
             player1boardPoint.textContent = Number(player1boardPoint.textContent) + 1;
-            tics.forEach((tic) => tic.textContent = "");
-            logic = [];
-            count = [];
+            resetBoard();
         }
         else if (logic[0] == player2 && logic[0] == logic[1] && logic[1] == logic[2] ||
             logic[3] == player2 && logic[3] == logic[4] && logic[4] == logic[5] ||
@@ -105,17 +102,13 @@ const gameBoard = (() => {
             logic[0] == player2 && logic[0] == logic[4] && logic[4] == logic[8] ||
             logic[2] == player2 && logic[2] == logic[4] && logic[4] == logic[6]) {
             player2boardPoint.textContent = Number(player2boardPoint.textContent) + 1;
-            tics.forEach((tic) => tic.textContent = "");
-            logic = [];
-            count = [];
+            resetBoard();
         }
         else if (!(logic[0] == undefined || logic[1] == undefined || logic[2] == undefined ||
             logic[3] == undefined || logic[4] == undefined || logic[5] == undefined ||
             logic[6] == undefined || logic[7] == undefined || logic[8] == undefined)) {
             tiePoint.textContent = Number(tiePoint.textContent) + 1;
-            tics.forEach((tic) => tic.textContent = "");
-            logic = [];
-            count = [];
+            resetBoard();
         }
     }
 
