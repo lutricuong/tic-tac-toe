@@ -34,10 +34,10 @@ const gameBoard = (() => {
             player2 = player(player2name.value, 'O');
         }
         else player2 = player(player2name.value, 'X');
-        player1boardName.textContent = player1name.value;
-        player2boardName.textContent = player2name.value;
-        player1boardPoint.textContent = '0';
-        player2boardPoint.textContent = '0';
+        player1boardName.textContent = player1name.value + ' (' + player1.marker + ')';
+        player2boardName.textContent = player2name.value + ' (' + player2.marker + ')';
+        player1boardPoint.textContent = 0;
+        player2boardPoint.textContent = 0;
         tiePoint.textContent = '0';
         playerDialog.close();
         showGameplay();
@@ -52,17 +52,19 @@ const gameBoard = (() => {
         }
     }
     const displayMarker = (tic) => {
-        if (count.length == 0 || count.length == 2 ||
-            count.length == 4 || count.length == 6 ||
-            count.length == 8) {
-                tic.textContent = "X";
-                logic[tics.indexOf(tic)] = player1;
-                count.push(player1);
+        if (tic.textContent == "") {
+            if (count.length == 0 || count.length == 2 ||
+                count.length == 4 || count.length == 6 ||
+                count.length == 8) {
+                    tic.textContent = "X";
+                    logic[tics.indexOf(tic)] = player1;
+                    count.push(player1);
+                }
+            else {
+                tic.textContent = "O";
+                logic[tics.indexOf(tic)] = player2;
+                count.push(player2);
             }
-        else {
-            tic.textContent = "O";
-            logic[tics.indexOf(tic)] = player2;
-            count.push(player2);
         }
         console.log(logic);
         if (logic[0] == player1 && logic[0] == logic[1] && logic[1] == logic[2] ||
@@ -73,9 +75,9 @@ const gameBoard = (() => {
             logic[2] == player1 && logic[2] == logic[5] && logic[5] == logic[8] ||
             logic[0] == player1 && logic[0] == logic[4] && logic[4] == logic[8] ||
             logic[2] == player1 && logic[2] == logic[4] && logic[4] == logic[6]) {
-            board.textContent = "cuong win";
+                player1boardPoint.textContent = Number(player1boardPoint.textContent) + 1;
         }
-        if (logic[0] == player2 && logic[0] == logic[1] && logic[1] == logic[2] ||
+        else if (logic[0] == player2 && logic[0] == logic[1] && logic[1] == logic[2] ||
             logic[3] == player2 && logic[3] == logic[4] && logic[4] == logic[5] ||
             logic[6] == player2 && logic[6] == logic[7] && logic[7] == logic[8] ||
             logic[0] == player2 && logic[0] == logic[3] && logic[3] == logic[6] ||
@@ -83,7 +85,12 @@ const gameBoard = (() => {
             logic[2] == player2 && logic[2] == logic[5] && logic[5] == logic[8] ||
             logic[0] == player2 && logic[0] == logic[4] && logic[4] == logic[8] ||
             logic[2] == player2 && logic[2] == logic[4] && logic[4] == logic[6]) {
-            board.textContent = "enemy win";
+            player2boardPoint.textContent = Number(player2boardPoint.textContent) + 1;
+        }
+        else if (!(logic[0] == undefined || logic[1] == undefined || logic[2] == undefined ||
+            logic[3] == undefined || logic[4] == undefined || logic[5] == undefined ||
+            logic[6] == undefined || logic[7] == undefined || logic[8] == undefined)) {
+            tiePoint.textContent = Number(tiePoint.textContent) + 1;
         }
     }
 
@@ -91,6 +98,6 @@ const gameBoard = (() => {
     buttonConfirmPlayer.addEventListener('click', closeDialog);
     tics.forEach((tic) => tic.addEventListener('click', displayMarker.bind(tics, tic)));
     
-    return {showDialog, closeDialog, tics};
+    return {};
 })();
 
