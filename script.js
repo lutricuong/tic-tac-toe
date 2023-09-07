@@ -18,8 +18,8 @@ const gameBoard = (() => {
     const player1boardPoint = document.querySelector('.player1-board-point');
     const player2boardPoint = document.querySelector('.player2-board-point');
     const tiePoint = document.querySelector('.tie-point');
-    const count = [];
-    const logic = [];
+    let count = [];
+    let logic = [];
     let player1;
     let player2;
 
@@ -40,6 +40,9 @@ const gameBoard = (() => {
         player2boardPoint.textContent = 0;
         tiePoint.textContent = '0';
         playerDialog.close();
+        tics.forEach((tic) => tic.textContent = "");
+        logic = [];
+        count = [];
         showGameplay();
     }
     const showGameplay = () => {
@@ -52,7 +55,7 @@ const gameBoard = (() => {
         }
     }
     const displayMarker = (tic) => {
-        if (tic.textContent == "") {
+        if (tic.textContent == "" && player1.marker == "X") {
             if (count.length == 0 || count.length == 2 ||
                 count.length == 4 || count.length == 6 ||
                 count.length == 8) {
@@ -66,7 +69,20 @@ const gameBoard = (() => {
                 count.push(player2);
             }
         }
-        console.log(logic);
+        else if (tic.textContent == "" && player1.marker == "O") {
+            if (count.length == 0 || count.length == 2 ||
+                count.length == 4 || count.length == 6 ||
+                count.length == 8) {
+                    tic.textContent = "X";
+                    logic[tics.indexOf(tic)] = player2;
+                    count.push(player2);
+                }
+            else {
+                tic.textContent = "O";
+                logic[tics.indexOf(tic)] = player1;
+                count.push(player1);
+            }
+        }
         if (logic[0] == player1 && logic[0] == logic[1] && logic[1] == logic[2] ||
             logic[3] == player1 && logic[3] == logic[4] && logic[4] == logic[5] ||
             logic[6] == player1 && logic[6] == logic[7] && logic[7] == logic[8] ||
@@ -75,7 +91,10 @@ const gameBoard = (() => {
             logic[2] == player1 && logic[2] == logic[5] && logic[5] == logic[8] ||
             logic[0] == player1 && logic[0] == logic[4] && logic[4] == logic[8] ||
             logic[2] == player1 && logic[2] == logic[4] && logic[4] == logic[6]) {
-                player1boardPoint.textContent = Number(player1boardPoint.textContent) + 1;
+            player1boardPoint.textContent = Number(player1boardPoint.textContent) + 1;
+            tics.forEach((tic) => tic.textContent = "");
+            logic = [];
+            count = [];
         }
         else if (logic[0] == player2 && logic[0] == logic[1] && logic[1] == logic[2] ||
             logic[3] == player2 && logic[3] == logic[4] && logic[4] == logic[5] ||
@@ -86,11 +105,17 @@ const gameBoard = (() => {
             logic[0] == player2 && logic[0] == logic[4] && logic[4] == logic[8] ||
             logic[2] == player2 && logic[2] == logic[4] && logic[4] == logic[6]) {
             player2boardPoint.textContent = Number(player2boardPoint.textContent) + 1;
+            tics.forEach((tic) => tic.textContent = "");
+            logic = [];
+            count = [];
         }
         else if (!(logic[0] == undefined || logic[1] == undefined || logic[2] == undefined ||
             logic[3] == undefined || logic[4] == undefined || logic[5] == undefined ||
             logic[6] == undefined || logic[7] == undefined || logic[8] == undefined)) {
             tiePoint.textContent = Number(tiePoint.textContent) + 1;
+            tics.forEach((tic) => tic.textContent = "");
+            logic = [];
+            count = [];
         }
     }
 

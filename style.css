@@ -53,7 +53,7 @@ body {
 }
 
 .gameplay {
-    display: grid;
+    display: none;
     gap: 20px;
 }
 
