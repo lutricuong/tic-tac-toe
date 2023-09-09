@@ -9,50 +9,51 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <div class="header">Tic Tac Toe</div>
-    </header>
-    <button class="player-pick">Pick Player</button>
-    <dialog class="player-dialog">
-        <form class="player-form">
-            <div class="player-form-title">Player 1</div>
-            <input type="text" id="player1-name" placeholder="Name" required>
-            <div class="player-form-title">Player 2</div>
-            <input type="text" id="player2-name" placeholder="Name" required>
-            <fieldset>
-                <legend>Player 1 chose? (X goes first)</legend>
-                <div class="X">
-                    <input type="radio" name="marker" id="X" value="X" checked>
-                    <span>X</span>
-                </div>
-                <div class="O">
-                    <input type="radio" name="marker" id="O" value="O">
-                    <span>O</span>
-                </div>
-            </fieldset>
-            <button class="player-confirm">OK</button>
-        </form>
-    </dialog>
-    <div class="gameplay">
-        <div class="display">
-            <div class="tic one"></div>
-            <div class="tic two"></div>
-            <div class="tic three"></div>
-            <div class="tic four"></div>
-            <div class="tic five"></div>
-            <div class="tic six"></div>
-            <div class="tic seven"></div>
-            <div class="tic eight"></div>
-            <div class="tic nine"></div>
+    <div class="header">Tic-Tac-Toe</div>           
+    <div class="main">
+        <dialog class="player-dialog">
+            <form class="player-form">
+                <div class="player-form-title">Player 1</div>
+                <input type="text" id="player1-name" placeholder="Name" required>
+                <div class="player-form-title">Player 2</div>
+                <input type="text" id="player2-name" placeholder="Name" required>
+                <fieldset>
+                    <legend>Player 1 chose? (X goes first)</legend>
+                    <div class="X">
+                        <input type="radio" name="marker" id="X" value="X" checked>
+                        <span>X</span>
+                    </div>
+                    <div class="O">
+                        <input type="radio" name="marker" id="O" value="O">
+                        <span>O</span>
+                    </div>
+                </fieldset>
+                <button class="player-confirm">OK</button>
+            </form>
+        </dialog>
+        <div class="gameplay">
+            <div class="player-current"></div>
+            <div class="display">
+                <div class="tic one"></div>
+                <div class="tic two"></div>
+                <div class="tic three"></div>
+                <div class="tic four"></div>
+                <div class="tic five"></div>
+                <div class="tic six"></div>
+                <div class="tic seven"></div>
+                <div class="tic eight"></div>
+                <div class="tic nine"></div>
+            </div>
+            <div class="board">
+                <div class="player1-board-name"></div>
+                <div class="tie">Tie</div>
+                <div class="player2-board-name"></div>
+                <div class="player1-board-point"></div>
+                <div class="tie-point"></div>
+                <div class="player2-board-point"></div>
+            </div>
         </div>
-        <div class="board">
-            <div class="player1-board-name"></div>
-            <div class="tie">Tie</div>
-            <div class="player2-board-name"></div>
-            <div class="player1-board-point"></div>
-            <div class="tie-point"></div>
-            <div class="player2-board-point"></div>
-        </div>
+        <button class="player-pick">Pick Player</button>
     </div>
 </body>
 </html>
