@@ -8,7 +8,8 @@ body {
 .header {
     font-size: 100px;
     font-weight: 800;
-    padding: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     width: 100vw;
     text-align: center;
     background-color: #4c5c68;
