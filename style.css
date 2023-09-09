@@ -114,6 +114,7 @@ body {
     border-left: solid 2px #2a3a46;
     justify-self: center;
     background-color: white;
+    text-align: center;
 }
 
 .board > div {
@@ -125,7 +126,8 @@ body {
 }
 
 .player-pick {
-    font-size: 20px;
+    font-size: 30px;
+    font-weight: 800;
     width: 240px;
     height: 80px;
     justify-self: center;
@@ -133,5 +135,37 @@ body {
     background-color: #4c5c68;
     color: #b0e4db;
     border: solid 3px #2a3a46;
+}
+
+@media only screen and (max-width: 600px) {
+    .header {
+        font-size: 50px;
+    }
+
+    .player-current {
+        font-size: 30px;
+    }
+
+    .display {
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows: repeat(3, 100px);
+        width: 330px;
+        height: 330px;
+    }
+
+    .tic {
+        font-size: 80px;
+    }
+    .board {
+        grid-template-columns: repeat(3, 120px);
+        width: 360px;
+        height: 130px;
+    }
+
+    .player-pick {
+        font-size: 20px;
+        width: 180px;
+        height: 60px;
+    }
 }
 
