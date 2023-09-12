@@ -64,10 +64,10 @@ const gameboard = (() => {
 })();
 
 const gameplay = (() => {
+    const buttonRestart = document.querySelector('.restart');
     const _tics = Array.from(document.querySelectorAll('.tic'));
     const _count = new Array;
     const _logic = new Array;
-    const buttonRestart = document.querySelector('.restart');
     const tics = () => _tics;
     const count = () => _count;
     const logic = () => _logic;
@@ -148,8 +148,16 @@ const gameplay = (() => {
         }
     }
 
+    const restart = () => {
+        if (gameboard.player1().sign == 'X') {
+            gameboard.playerCurrent.textContent = gameboard.player1().name + ' (' + gameboard.player1().sign + ')' + ' turn';
+        }
+        else gameboard.playerCurrent.textContent = gameboard.player2().name + ' (' + gameboard.player2().sign + ')' + ' turn';
+        reset(_tics, _logic, _count);
+    }
+
     _tics.forEach((tic) => tic.addEventListener('click', displaySign.bind(_tics, tic)));
-    buttonRestart.addEventListener('click',() => reset(_tics, _logic, _count));
+    buttonRestart.addEventListener('click', restart);
     return {reset, tics, count, logic};
 })();
 
