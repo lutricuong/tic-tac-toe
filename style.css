@@ -138,6 +138,17 @@ body {
     border: solid 3px #2a3a46;
 }
 
+.restart {
+    font-size: 30px;
+    font-weight: 800;
+    width: 240px;
+    height: 80px;
+    justify-self: center;
+    border-radius: 10px;
+    background-color: #4c5c68;
+    color: #b0e4db;
+    border: solid 3px #2a3a46;
+}
 @media only screen and (max-width: 600px) {
     .header {
         font-size: 50px;
