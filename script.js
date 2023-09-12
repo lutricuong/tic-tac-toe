@@ -1,134 +1,155 @@
-const player = (name, marker) => {
-    return {name, marker};
+const player = (name, sign) => {
+    return {name, sign};
 }
-
-const gameBoard = (() => {
+const gameboard = (() => {
     const buttonPickPlayer = document.querySelector('.player-pick');
     const playerDialog = document.querySelector('.player-dialog');
     const playerForm = document.querySelector('.player-form');
     const player1name = document.querySelector('#player1-name');
     const player2name = document.querySelector('#player2-name');
-    const player1marker = document.getElementsByName('marker');
+    const player1sign = document.getElementsByName('sign');
     const buttonConfirmPlayer = document.querySelector('.player-confirm');
-    const gameplay = document.querySelector('.gameplay');
+    const display = document.querySelector('.display');
     const playerCurrent = document.querySelector('.player-current');
-    const tics = Array.from(document.querySelectorAll('.tic'));
     const player1boardName = document.querySelector('.player1-board-name');
     const player2boardName = document.querySelector('.player2-board-name');
     const player1boardPoint = document.querySelector('.player1-board-point');
     const player2boardPoint = document.querySelector('.player2-board-point');
     const tiePoint = document.querySelector('.tie-point');
 
-    let count = [];
-    let logic = [];
-    let player1;
-    let player2;
 
     const showDialog = () => {
         playerForm.reset();
         playerDialog.showModal();
     }
-    const chooseMarker = () => {
-        for (i = 0; i < player1marker.length; i++) {
-            if (player1marker[i].checked)
-            return player1marker[i].value;
-        }
-    }
-    const resetBoard = () => {
-        tics.forEach((tic) => tic.textContent = "");
-        logic = [];
-        count = [];
-    }
+
     const closeDialog = (e) => {
         e.preventDefault();
-        player1 = player(player1name.value, chooseMarker());
-        if (player1.marker == 'X') {
-            player2 = player(player2name.value, 'O');
-            playerCurrent.textContent = player1.name + ' (' + player1.marker + ')' + ' turn';
-        }
-        else {
-            player2 = player(player2name.value, 'X');
-            playerCurrent.textContent = player2.name + ' (' + player2.marker + ')' + ' turn';
-        }
-        player1boardName.textContent = player1name.value + ' (' + player1.marker + ')';
-        player2boardName.textContent = player2name.value + ' (' + player2.marker + ')';
-        player1boardPoint.textContent = '0';
-        player2boardPoint.textContent = '0';
-        tiePoint.textContent = '0';
-        gameplay.style.display = "grid";
-        resetBoard();
+        gameplay.reset(gameplay.tics(), gameplay.logic(), gameplay.count());
+        showDisplay();
         playerDialog.close();
     }
-    const displayMarker = (tic) => {
-        if (tic.textContent == '' && player1.marker == 'X') {
-            if (count.length == 0 || count.length == 2 ||
-                count.length == 4 || count.length == 6 ||
-                count.length == 8) {
-                    playerCurrent.textContent = player2.name + ' (' + player2.marker + ')' + ' turn';
-                    tic.textContent = 'X';
-                    logic[tics.indexOf(tic)] = player1;
-                    count.push(player1);
-                }
-            else {
-                playerCurrent.textContent = player1.name + ' (' + player1.marker + ')' + ' turn';
-                tic.textContent = 'O';
-                logic[tics.indexOf(tic)] = player2;
-                count.push(player2);
-            }
-        }
-        else if (tic.textContent == '' && player1.marker == 'O') {
-            if (count.length == 0 || count.length == 2 ||
-                count.length == 4 || count.length == 6 ||
-                count.length == 8) {
-                    playerCurrent.textContent = player1.name + ' (' + player1.marker + ')' + ' turn';
-                    tic.textContent = 'X';
-                    logic[tics.indexOf(tic)] = player2;
-                    count.push(player2);
-                }
-            else {
-                playerCurrent.textContent = player2.name + ' (' + player2.marker + ')' + ' turn';
-                tic.textContent = 'O';
-                logic[tics.indexOf(tic)] = player1;
-                count.push(player1);
-            }
-        }
-        if (logic[0] == player1 && logic[0] == logic[1] && logic[1] == logic[2] ||
-            logic[3] == player1 && logic[3] == logic[4] && logic[4] == logic[5] ||
-            logic[6] == player1 && logic[6] == logic[7] && logic[7] == logic[8] ||
-            logic[0] == player1 && logic[0] == logic[3] && logic[3] == logic[6] ||
-            logic[1] == player1 && logic[1] == logic[4] && logic[4] == logic[7] ||
-            logic[2] == player1 && logic[2] == logic[5] && logic[5] == logic[8] ||
-            logic[0] == player1 && logic[0] == logic[4] && logic[4] == logic[8] ||
-            logic[2] == player1 && logic[2] == logic[4] && logic[4] == logic[6]) {
-            player1boardPoint.textContent = Number(player1boardPoint.textContent) + 1;
-            playerCurrent.textContent = player1.name + ' (' + player1.marker + ')' + ' has won';
-            resetBoard();
-        }
-        else if (logic[0] == player2 && logic[0] == logic[1] && logic[1] == logic[2] ||
-            logic[3] == player2 && logic[3] == logic[4] && logic[4] == logic[5] ||
-            logic[6] == player2 && logic[6] == logic[7] && logic[7] == logic[8] ||
-            logic[0] == player2 && logic[0] == logic[3] && logic[3] == logic[6] ||
-            logic[1] == player2 && logic[1] == logic[4] && logic[4] == logic[7] ||
-            logic[2] == player2 && logic[2] == logic[5] && logic[5] == logic[8] ||
-            logic[0] == player2 && logic[0] == logic[4] && logic[4] == logic[8] ||
-            logic[2] == player2 && logic[2] == logic[4] && logic[4] == logic[6]) {
-            player2boardPoint.textContent = Number(player2boardPoint.textContent) + 1;
-            playerCurrent.textContent = player2.name + ' (' + player2.marker + ')' + ' has won';
-            resetBoard();
-        }
-        else if (!(logic[0] == undefined || logic[1] == undefined || logic[2] == undefined ||
-            logic[3] == undefined || logic[4] == undefined || logic[5] == undefined ||
-            logic[6] == undefined || logic[7] == undefined || logic[8] == undefined)) {
-            tiePoint.textContent = Number(tiePoint.textContent) + 1;
-            playerCurrent.textContent = 'It\'s a draw!';
-            resetBoard();
+
+    const getSignPlayer1 = () => {
+        for (i = 0; i < player1sign.length; i++) {
+            if (player1sign[i].checked)
+            return player1sign[i].value;
         }
     }
 
+    const getSignPlayer2 = () => {
+        if (getSignPlayer1() == 'X') {
+            return 'O';
+        }
+        else return 'X';
+    }
+    const player1 = () => player(player1name.value, getSignPlayer1());
+    const player2 = () => player(player2name.value, getSignPlayer2());
+    const showDisplay = () => {
+        if (player1().sign == 'X') {
+            playerCurrent.textContent = player1().name + ' (' + player1().sign + ')' + ' turn';
+        }
+        else playerCurrent.textContent = player2().name + ' (' + player2().sign + ')' + ' turn';
+        player1boardName.textContent = player1().name + ' (' + player1().sign + ')';
+        player2boardName.textContent = player2().name + ' (' + player2().sign + ')';
+        player1boardPoint.textContent = '0';
+        player2boardPoint.textContent = '0';
+        tiePoint.textContent = '0';
+        display.style.display = "grid";
+    }
     buttonPickPlayer.addEventListener('click', showDialog);
     buttonConfirmPlayer.addEventListener('click', closeDialog);
-    tics.forEach((tic) => tic.addEventListener('click', displayMarker.bind(tics, tic)));
     
-    return {};
+    return {buttonConfirmPlayer, playerCurrent, player1boardPoint, player2boardPoint, tiePoint, player1, player2}
+})();
+
+const gameplay = (() => {
+    const _tics = Array.from(document.querySelectorAll('.tic'));
+    const _count = new Array;
+    const _logic = new Array;
+    
+    const tics = () => _tics;
+    const count = () => _count;
+    const logic = () => _logic;
+
+    const reset = (tics, logic, count) => {
+        tics.forEach((tic) => tic.textContent = "");
+        for(let i=0;i<9;i++) {
+            logic.pop();
+        }
+        for(let i=0;i<9;i++) {
+            count.pop();
+        }
+    }
+
+    const displaySign = (tic) => {
+        if (tic.textContent == '' && gameboard.player1().sign == 'X') {
+            if (_count.length == 0 || _count.length == 2 ||
+                _count.length == 4 || _count.length == 6 ||
+                _count.length == 8) {
+                    gameboard.playerCurrent.textContent = gameboard.player2().name + ' (' + gameboard.player2().sign + ')' + ' turn';
+                    tic.textContent = 'X';
+                    _logic[_tics.indexOf(tic)] = gameboard.player1().sign;
+                    _count.push(gameboard.player1());
+                }
+            else {
+                gameboard.playerCurrent.textContent = gameboard.player1().name + ' (' + gameboard.player1().sign + ')' + ' turn';
+                tic.textContent = 'O';
+                _logic[_tics.indexOf(tic)] = gameboard.player2().sign;
+                _count.push(gameboard.player2());
+            }
+        }
+        else if (tic.textContent == '' && gameboard.player2().sign == 'X') {
+            if (_count.length == 0 || _count.length == 2 ||
+                _count.length == 4 || _count.length == 6 ||
+                _count.length == 8) {
+                    gameboard.playerCurrent.textContent = gameboard.player1().name + ' (' + gameboard.player1().sign + ')' + ' turn';
+                    tic.textContent = 'X';
+                    _logic[_tics.indexOf(tic)] = gameboard.player2().sign;
+                    _count.push(gameboard.player2());
+                }
+            else {
+                gameboard.playerCurrent.textContent = gameboard.player2().name + ' (' + gameboard.player2().sign + ')' + ' turn';
+                tic.textContent = 'O';
+                _logic[_tics.indexOf(tic)] = gameboard.player1().sign;
+                _count.push(gameboard.player1());
+            }
+        }
+        if (_logic[0] == gameboard.player1().sign && _logic[0] == _logic[1] && _logic[1] == _logic[2] ||
+            _logic[3] == gameboard.player1().sign && _logic[3] == _logic[4] && _logic[4] == _logic[5] ||
+            _logic[6] == gameboard.player1().sign && _logic[6] == _logic[7] && _logic[7] == _logic[8] ||
+            _logic[0] == gameboard.player1().sign && _logic[0] == _logic[3] && _logic[3] == _logic[6] ||
+            _logic[1] == gameboard.player1().sign && _logic[1] == _logic[4] && _logic[4] == _logic[7] ||
+            _logic[2] == gameboard.player1().sign && _logic[2] == _logic[5] && _logic[5] == _logic[8] ||
+            _logic[0] == gameboard.player1().sign && _logic[0] == _logic[4] && _logic[4] == _logic[8] ||
+            _logic[2] == gameboard.player1().sign && _logic[2] == _logic[4] && _logic[4] == _logic[6]) {
+            gameboard.player1boardPoint.textContent = Number(gameboard.player1boardPoint.textContent) + 1;
+            gameboard.playerCurrent.textContent = gameboard.player1().name + ' (' + gameboard.player1().sign + ')' + ' has won';
+            reset(_tics, _logic, _count);
+        }
+        else if (_logic[0] == gameboard.player2().sign && _logic[0] == _logic[1] && _logic[1] == _logic[2] ||
+            _logic[3] == gameboard.player2().sign && _logic[3] == _logic[4] && _logic[4] == _logic[5] ||
+            _logic[6] == gameboard.player2().sign && _logic[6] == _logic[7] && _logic[7] == _logic[8] ||
+            _logic[0] == gameboard.player2().sign && _logic[0] == _logic[3] && _logic[3] == _logic[6] ||
+            _logic[1] == gameboard.player2().sign && _logic[1] == _logic[4] && _logic[4] == _logic[7] ||
+            _logic[2] == gameboard.player2().sign && _logic[2] == _logic[5] && _logic[5] == _logic[8] ||
+            _logic[0] == gameboard.player2().sign && _logic[0] == _logic[4] && _logic[4] == _logic[8] ||
+            _logic[2] == gameboard.player2().sign && _logic[2] == _logic[4] && _logic[4] == _logic[6]) {
+            gameboard.player2boardPoint.textContent = Number(gameboard.player2boardPoint.textContent) + 1;
+            gameboard.playerCurrent.textContent = gameboard.player2().name + ' (' + gameboard.player2().sign + ')' + ' has won';
+            reset(_tics, _logic, _count);
+        }
+        else if (!(_logic[0] == undefined || _logic[1] == undefined || _logic[2] == undefined ||
+            _logic[3] == undefined || _logic[4] == undefined || _logic[5] == undefined ||
+            _logic[6] == undefined || _logic[7] == undefined || _logic[8] == undefined)) {
+            gameboard.tiePoint.textContent = Number(gameboard.tiePoint.textContent) + 1;
+            gameboard.playerCurrent.textContent = 'It\'s a draw!';
+            reset(_tics, _logic, _count);
+        }
+    }
+
+    _tics.forEach((tic) => tic.addEventListener('click', displaySign.bind(_tics, tic)));
+
+    return {reset, tics, count, logic};
 })();
 

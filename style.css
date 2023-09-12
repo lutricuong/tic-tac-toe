@@ -55,7 +55,7 @@ body {
     font-weight: 800;
 }
 
-.gameplay {
+.display {
     display: none;
     gap: 20px;
 }
@@ -66,7 +66,7 @@ body {
     color: #2a3a46;
     font-weight: 800;
 }
-.display {
+.tics {
     display: grid;
     grid-template-columns: repeat(3, 140px);
     grid-template-rows: repeat(3, 140px);
@@ -147,7 +147,7 @@ body {
         font-size: 30px;
     }
 
-    .display {
+    .tics {
         grid-template-columns: repeat(3, 100px);
         grid-template-rows: repeat(3, 100px);
         width: 330px;
